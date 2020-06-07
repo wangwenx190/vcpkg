@@ -17,7 +17,7 @@
 
 function(vcpkg_configure_qmake)
     cmake_parse_arguments(_csc "" "SOURCE_PATH" "OPTIONS;OPTIONS_RELEASE;OPTIONS_DEBUG;BUILD_OPTIONS;BUILD_OPTIONS_RELEASE;BUILD_OPTIONS_DEBUG" ${ARGN})
-     
+
     # Find qmake executable
     set(_triplet_hostbindir ${CURRENT_INSTALLED_DIR}/tools/qt5/bin)
     if(DEFINED VCPKG_QT_HOST_TOOLS_ROOT_DIR)
@@ -38,9 +38,9 @@ function(vcpkg_configure_qmake)
         list(APPEND _csc_OPTIONS "CONFIG*=shared")
         list(APPEND _csc_OPTIONS_DEBUG "CONFIG*=separate_debug_info")
     endif()
-    
+
     if(VCPKG_TARGET_IS_WINDOWS AND VCPKG_CRT_LINKAGE STREQUAL "static")
-        list(APPEND _csc_OPTIONS "CONFIG*=static-runtime")
+        list(APPEND _csc_OPTIONS "CONFIG*=static_runtime")
     endif()
 
     # Cleanup build directories
@@ -52,7 +52,7 @@ function(vcpkg_configure_qmake)
 
     if(NOT DEFINED VCPKG_BUILD_TYPE OR VCPKG_BUILD_TYPE STREQUAL "release")
         configure_file(${CURRENT_INSTALLED_DIR}/tools/qt5/qt_release.conf ${CURRENT_BUILDTREES_DIR}/${TARGET_TRIPLET}-rel/qt.conf)
-    
+
         message(STATUS "Configuring ${TARGET_TRIPLET}-rel")
         file(MAKE_DIRECTORY ${CURRENT_BUILDTREES_DIR}/${TARGET_TRIPLET}-rel)
         if(DEFINED _csc_BUILD_OPTIONS OR DEFINED _csc_BUILD_OPTIONS_RELEASE)
