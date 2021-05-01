@@ -8,7 +8,6 @@ vcpkg_from_github(
         0001-create-lib-libraries.patch
         0003-fix-windowsinclude.patch
         0004-fix-debug-build.patch
-        0005-fix-libvpx-linking.patch
         0006-fix-StaticFeatures.patch
         0007-fix-lib-naming.patch
         0008-Fix-wavpack-detection.patch
@@ -322,6 +321,14 @@ if("opengl" IN_LIST FEATURES)
     set(ENABLE_OPENGL ${STATIC_LINKAGE})
 else()
     set(OPTIONS "${OPTIONS} --disable-opengl")
+endif()
+
+set(ENABLE_OPENH264 OFF)
+if("openh264" IN_LIST FEATURES)
+    set(OPTIONS "${OPTIONS} --enable-libopenh264")
+    set(ENABLE_OPENH264 ${STATIC_LINKAGE})
+else()
+    set(OPTIONS "${OPTIONS} --disable-libopenh264")
 endif()
 
 set(ENABLE_OPENJPEG OFF)
